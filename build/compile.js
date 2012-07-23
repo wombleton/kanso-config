@@ -20,7 +20,10 @@ module.exports = {
         "    \"    return memo;\\n\" +\n" +
         "    \"  }, {});\\n\" +\n" +
         "    \"  $(document).data('" + data + "', config);\\n\" +\n" +
-        "    \"  $.kansoconfig = function(key) { return $(document).data('" + data + "')[key] || key; };\\n\" + \n" +
+        "    \"  $.kansoconfig = function(key, noFallback) {\\n\" +\n" +
+        "    \"    var result = config[key];\\n\" +\n" +
+        "    \"    return arguments.length === 0 ? config : noFallback ? result : result || key;\\n\" +\n" +
+        "    \"  };\\n\" + \n" +
         "    \"})(jQuery)\",\n" +
         "    headers: { 'Content-Type': 'text/javascript' }\n" +
         "  }\n" +

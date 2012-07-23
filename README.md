@@ -57,5 +57,12 @@ This will read a document with the id `config` and the following structure:
 
 You can then retrieve the configuration in the following way:
 ```
-  var config = $(document).data('kanso-config');
+  var config = $.kansoconfig();
+```
+
+You can get particular keys:
+```
+  var value = $.kansoconfig('key'); // returns 'value'
+  var miss = $.kansoconfig('miss'); // returns the key back, 'miss'
+  var sansFallback = $.kansoconfig('miss', true); // returns undefined
 ```
