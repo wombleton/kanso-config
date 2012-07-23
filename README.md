@@ -36,18 +36,13 @@ This is the default configuration:
 Include the generated config file into your HTML page:
 
 ```
- <script src="{baseURL}/../_show/$showId/$configDocument.js" type="text/javascript"></script>
+ <script src="{baseURL}/../_show/$showId/config.js" type="text/javascript"></script>
 ```
 
-by default this is:
-```
- <script src="{baseURL}/../_show/config/config.js" type="text/javascript"></script>
-```
-
-This will read a document with the id `config` and the following structure:
+This will read a document with the id `config.js` and the following structure:
 ```
 {
-  _id: 'config'
+  _id: 'config.js'
   values: [
     { key: 'key', value: 'value' },
     { key: 'key1', value: 'value1' }
