@@ -13,7 +13,7 @@ module.exports = {
     path = config.path || 'config.js';
     if (lib != null) {
       lib.shows = lib.shows || '';
-      lib.shows += "(function() { exports['" + showId + "'] = function(doc, req) {\n" +
+      lib.shows += "(function() { module.exports['" + showId + "'] = function(doc, req) {\n" +
         "  return {\n" +
         "    body: \"\\n\" +\n" +
         "    \"(function($) {\\n\" +\n" +
