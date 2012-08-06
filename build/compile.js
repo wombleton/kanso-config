@@ -1,4 +1,5 @@
 module.exports = {
+  after: [ 'modules' ],
   run: function(root, path, settings, doc, callback) {
     var config, data, key, lib, showId, value;
     lib = doc.lib;
@@ -12,7 +13,7 @@ module.exports = {
     path = config.path || 'config.js';
     if (lib != null) {
       lib.shows = lib.shows || '';
-      lib.shows += "exports['" + showId + "'] = function(doc, req) {\n" +
+      lib.shows += "(function() { exports['" + showId + "'] = function(doc, req) {\n" +
         "  return {\n" +
         "    body: \"\\n\" +\n" +
         "    \"(function($) {\\n\" +\n" +
@@ -34,14 +35,13 @@ module.exports = {
         "    \"})(jQuery)\",\n" +
         "    headers: { 'Content-Type': 'text/javascript' }\n" +
         "  }\n" +
-        "};";
+        "}}).call(this);";
 
-
-      lib.rewrites = lib.rewrites || 'module.exports = [];';
-      lib.rewrites += "module.exports.unshift({" +
+      lib.rewrites = lib.rewrites || '(function() { module.exports = [];}).call(this);';
+      lib.rewrites += "(function() { module.exports.unshift({" +
         "  from: '/" + path + "'," +
         "  to: '_show/" + showId + "/" + documentId + "'" +
-        " });";
+        " })}).call(this);";
     }
     return callback(null, doc);
   }

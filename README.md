@@ -46,11 +46,13 @@ This will read a document with the id `config.js` (change this by updating `docu
 {
   _id: 'config.js'
   values: [
-    { key: 'key', value: 'value' },
-    { key: 'key1', value: 'value1' }
+    { "key": "key", "value": "value" },
+    { "key": "key1", "value": "value1" }
   ]
 }
 ```
+
+Note: There needs to be `shows` and `rewrites` defined for the module to work correctly (they can be empty).
 
 You can then retrieve the configuration in the following way:
 ```
