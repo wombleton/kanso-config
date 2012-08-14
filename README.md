@@ -1,7 +1,7 @@
 # Kanso Config
 
-This package allows you to easily include the values of a configuration
-document into a kanso application.
+This package allows you to easily include the values of configuration
+documents into a kanso application.
 
 ## Install
 
@@ -25,12 +25,11 @@ kanso install
 This is the default configuration:
 ```
 "kanso-config": {
-  "keyKey": "key",
-  "valueKey": "value",
-  "valuesKey": "values",
   "dataKey": "kanso-config",
-  "showId": "config",
-  "documentId": "config.js",
+  "listId": "config",
+  "viewId": "config.js",
+  "type": "config",
+  "module": "module",
   "path": "config.js"
 }
 ```
@@ -41,18 +40,10 @@ Include the generated config file into your HTML page:
  <script src="{baseURL}/config.js" type="text/javascript"></script>
 ```
 
-This will read a document with the id `config.js` (change this by updating `documentId`) and the following structure:
-```
-{
-  _id: 'config.js'
-  values: [
-    { "key": "key", "value": "value" },
-    { "key": "key1", "value": "value1" }
-  ]
-}
-```
+This will read a document with a `type` of `config` and a value in the `module` field.
+(Change these by updating `type` or `module` in the config).
 
-Note: There needs to be `shows` and `rewrites` defined for the module to work correctly (they can be empty).
+Note: There needs to be `lists` and `rewrites` defined for the module to work correctly (they can be empty).
 
 You can then retrieve the configuration in the following way:
 ```
