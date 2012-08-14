@@ -1,14 +1,17 @@
 module.exports = {
   after: [ 'modules' ],
   run: function(root, path, settings, doc, callback) {
-    var config, data, key, lib, listBody, rewriteBody, showId, viewBody, viewId;
+    var config, data, defaults, key, lib, listBody, rewriteBody, showId, viewBody, viewId;
     config = settings['kanso-config'] || {};
+    defaults = config.defaults || {};
     listId = config.listId || 'config';
     viewId = config.viewId || 'config';
     data = config.dataKey || 'kanso-config';
     path = config.path || 'config.js';
     type = config.type || 'config';
     module = config.module;
+
+    console.log(defaults);
 
     if (!module) {
       return callback("A unique module is required.", null);
@@ -37,13 +40,13 @@ module.exports = {
       listBody = " function() {\n" +
         "    provides('js', function() {\n" +
         "      var names, values, value, js;\n" +
-        "      values = {};\n" +
+        "      values = { \"" + module + "\": " + JSON.stringify(defaults) + "};\n" +
         "      while (row = getRow()) {\n" +
-        "        values[row.key] = {};\n" +
+        "        values[row.key] = values[row.key] || {};\n" +
         "        config = row.value || {};\n" +
         "        properties = Object.keys(config);\n" +
         "        properties.forEach(function(name) {\n" +
-        "          if (!(/^" + type + "|" + module + "/.test(name))) {\n" +
+        "          if (!(/^" + type + "|" + module + "|^_/.test(name))) {\n" +
         "            values[row.key][name] = config[name];\n" +
         "          }\n" +
         "        });\n" +
